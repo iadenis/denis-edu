@@ -1,78 +1,62 @@
-# Denis
+# Denis — Assistant IA Personnel
 
-**Apprendre n'importe quoi, progressivement.**
+Application web statique multi-modules basée sur l'API Claude (Anthropic). Aucun backend requis — tout fonctionne côté client.
 
-Denis est une plateforme d'apprentissage interactif basée sur des mini-jeux pédagogiques où un robot se déplace sur une grille à chaque bonne réponse. Chaque domaine a ses propres jeux, outils cliniques, et bibliothèques.
-
----
-
-## Structure des fichiers
+## Structure du projet
 
 ```
-index.html                        ← page d'accueil principale
-sciences.html                     ← hub sciences (animation + physique/chimie/maths)
-bibliotheque.html                 ← ma bibliothèque perso (créer, entraîner, paramètres)
-bibliotheques_expertisees.html    ← bibliothèques testées par des experts
-
-denis_physique.html               ← jeu physique
-denis_maths.html                  ← jeu mathématiques
-denis_chimie_generale.html        ← jeu chimie générale (18 chapitres)
-denis_chimie_organique.html       ← jeu chimie organique
-denis_biochimie.html              ← jeu biochimie
-denis_espagnol.html               ← jeu espagnol
-denis_cbip.html                   ← médecine · CBIP pharmacologie
-denis_neurochirurgie.html         ← neurochirurgie · cas cliniques
-pico_medical.html                 ← outil PICO · aide au traitement EBM
-diagnostic_medical.html           ← aide au diagnostic différentiel
-quantum_robot.html                ← quantum computing · Qiskit
-sources.html                      ← sources et références
+index.html                        ← Point d'entrée principal
+sources.html                      ← Gestion des sources EBM (bibliothèque)
+│
+├── Sciences
+│   ├── denis_maths.html          ← Tutor mathématiques
+│   ├── denis_physique.html       ← Tutor physique
+│   ├── denis_chimie_generale.html← Tutor chimie générale
+│   ├── denis_chimie_organique.html← Tutor chimie organique
+│   └── denis_biochimie.html      ← Tutor biochimie
+│
+├── Médecine
+│   ├── denis_neurochirurgie.html ← Tutor neurochirurgie
+│   ├── denis_cbip.html           ← CBIP / pharmacologie
+│   ├── pico_medical.html         ← Aide à la décision EBM (PICO)
+│   └── diagnostic_medical.html   ← Aide au diagnostic différentiel
+│
+├── Langues
+│   ├── denis_francais.html       ← Tutor français
+│   └── denis_espagnol.html       ← Tutor español
+│
+└── Informatique / Robots
+    ├── python_learn.html          ← Robot Python interactif
+    ├── crypto_robot_web.html      ← Robot crypto / trading
+    ├── quantum_robot_avec_correctifs_.html ← Robot quantique (Qiskit)
+    └── quantum_robot_qsharp.html  ← Robot quantique (Q#)
 ```
 
----
+## Déploiement
 
-## Nouvelles fonctionnalités (v0.3)
+### GitHub Pages (recommandé)
+1. Crée un repository GitHub (ex: `denis`)
+2. Upload tous les fichiers `.html` et ce `README.md`
+3. Dans **Settings → Pages**, sélectionne la branche `main` et le dossier `/root`
+4. L'app sera disponible sur `https://<ton-pseudo>.github.io/denis/`
 
-### 🔬 Sciences
-Hub dédié avec animation orbitale animée. Choix direct entre physique, chimie et maths. Accès aussi à biochimie, chimie organique, et quantum.
+### Local
+Ouvre simplement `index.html` dans un navigateur. Aucun serveur nécessaire.
 
-### 📚 Ma bibliothèque perso
-- **Profil étudiant ou professionnel**
-- **Ajout de contenu** : colle tes cours, notes, résumés
-- **URL & QR code** : ajoute des ressources en ligne (DynaMed, UpToDate, Cochrane, PubMed, sites avec abonnement…)
-- **Clé API** : configure ton accès Claude pour générer des questions
-- **Paramètres de l'assistant** :
-  - Vitesse de progression (lent → rapide)
-  - Questions supplémentaires sur les notions difficiles
-  - Mode examen (sans indice)
-  - Types de questions : QCM · vrai/faux · questions ouvertes · cas pratiques
-  - Feedback et explications après chaque question
+## Configuration de l'API
 
-### ⭐ Bibliothèques expertisées
-Bibliothèques construites et validées par des experts avec protocole documenté :
-- **PICO · aide au traitement** (médecins, pharmaciens)
-- **Aide au diagnostic** (internistes, urgentistes)
-- **CBIP pharmacologie** (pharmaciens, prescripteurs)
-- **Neurochirurgie** (neurochirurgiens, résidents)
+Chaque page demande une clé API Anthropic au premier lancement. La clé est stockée localement dans le navigateur (`localStorage`) — elle n'est jamais envoyée ailleurs qu'à `api.anthropic.com`.
 
-Chaque fiche affiche : testeurs · méthode · critères · résultat · avis.
+Pour obtenir une clé : [console.anthropic.com](https://console.anthropic.com)
 
----
+## Technologies
 
-## Déploiement GitHub Pages
+- HTML / CSS / JS vanilla — aucun framework, aucune dépendance npm
+- API Anthropic Claude (modèle `claude-sonnet-4-20250514`)
+- Web Search tool (pour PICO et diagnostic)
+- `localStorage` pour persistance des préférences et clé API
 
-1. Mets tous les fichiers `.html` dans un repo GitHub
-2. Active GitHub Pages (`Settings → Pages → main branch / root`)
-3. Ton URL sera : `https://[username].github.io/[repo]/`
+## Notes
 
-Aucune dépendance, aucun serveur — tout fonctionne en HTML statique.  
-La clé API est stockée uniquement dans le `localStorage` du navigateur de l'utilisateur.
-
----
-
-## Contribuer une bibliothèque expertisée
-
-Vous êtes expert dans un domaine ? Voir la page `bibliotheques_expertisees.html` pour le protocole de contribution.
-
----
-
-*Denis · v0.3 · 2025*
+- Les modules médicaux (PICO, diagnostic, CBIP) sont des outils d'aide à la décision — ils ne remplacent pas un avis médical.
+- Les robots quantiques nécessitent une connexion internet pour appeler l'API Claude.
